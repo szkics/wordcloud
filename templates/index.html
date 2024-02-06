@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Word Cloud Generator</title>
+</head>
+<body>
+    <textarea id="inputText" placeholder="Enter your text here..."></textarea>
+    <button onclick="generateWordCloud()">Generate Word Cloud</button>
+    <div id="wordCloudContainer"></div>
+
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
