@@ -1,8 +1,9 @@
 from flask import Flask, render_template, request, jsonify
-from wordcloud import WordCloud
+from wordcloud import WordCloud, STOPWORDS
 import matplotlib.pyplot as plt
 from io import BytesIO
 import base64
+from util import hu_stopwords, ro_stopwords, de_stopwords
 
 app = Flask(__name__)
 
@@ -14,8 +15,17 @@ def index():
 def generate_wordcloud():
     text = request.form['text']
 
+    # add Hungarian stopwords
+    hungarian_stopwords = hu_stopwords()
+    # add Romanian stopwords
+    romanian_stopwords = ro_stopwords()
+    # add German stopwords
+    german_stopwords = de_stopwords()
+
+    stop_words = hungarian_stopwords + romanian_stopwords + german_stopwords + list(STOPWORDS)
+
     # Generate word cloud
-    wordcloud = WordCloud(width=800, height=400, background_color='white').generate(text)
+    wordcloud = WordCloud(stopwords = stop_words, width=800, height=400, background_color='white').generate(text)
 
     # Convert word cloud to base64 image
     img = BytesIO()
